@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export const PortfolioSection = () => {
+interface PortfolioSectionProps {
+  limit?: number;
+}
+
+export const PortfolioSection = ({ limit }: PortfolioSectionProps = {}) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>("All");
 
@@ -380,7 +384,7 @@ export const PortfolioSection = () => {
           }
           return categoryProjects.slice(0, 10);
         })();
-  const visibleProjects = filteredProjects;
+  const visibleProjects = limit ? filteredProjects.slice(0, limit) : filteredProjects;
   const handleCloseLightbox = () => setActiveIndex(null);
   return (
     <section className="section-padding bg-background">
