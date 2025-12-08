@@ -10,6 +10,7 @@ import { ContactModal } from "@/components/modals/ContactModal";
 const navItems = [
   { label: "Web Development", href: "/web-development" },
   { label: "Website Optimization", href: "/website-optimization" },
+  { label: "AI Agent", href: "/ai-agent" },
   { label: "Pricing", href: "/pricing" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
@@ -48,7 +49,7 @@ export const Navbar = () => {
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">O</span>
             </div>
-            <span className="text-white font-bold text-lg hidden sm:block">Orbitline Digital</span>
+            <span className="text-white font-bold text-lg hidden sm:block">Webs Orbit</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -70,13 +71,13 @@ export const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button variant="hero" size="lg" type="button" onClick={handleOpenModal}>
-              Get a Website Revenue Plan
+            <Button variant="hero" size="lg" asChild>
+              <Link href="/steps">Get Started</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <button 
             className="lg:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -135,14 +136,11 @@ export const Navbar = () => {
                     variant="hero" 
                     size="lg" 
                     className="w-full" 
-                    type="button"
-                    onClick={(e) => { 
-                      e.preventDefault();
-                      handleOpenModal(e);
-                      setIsOpen(false);
-                    }}
+                    asChild
                   >
-                    Get a Website Revenue Plan
+                    <Link href="/steps" onClick={() => setIsOpen(false)}>
+                      Get Started
+                    </Link>
                   </Button>
                 </div>
               </div>

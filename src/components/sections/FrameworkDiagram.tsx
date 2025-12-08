@@ -46,60 +46,8 @@ export const FrameworkDiagram = () => {
             The Website Revenue Plan gives you clarity on each element before a single pixel is pushed.
           </p>
         </div>
-
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Circle Diagram */}
-          <div className="relative flex items-center justify-center">
-
-            {/* <Image src="/assets/images/home/home6.png" alt="Framework Diagram Image" width={600} height={600} /> */}
-
-            <div className="relative w-72 h-72 md:w-80 md:h-80">
-              <div className="absolute inset-1/4 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-center text-lg px-4">
-                  Your Website
-                </span>
-              </div>
-
-              {frameworkSlices.map((slice, index) => {
-                const angle = (index * 360) / frameworkSlices.length - 90;
-                const radius = 140;
-                const x = Math.cos((angle * Math.PI) / 180) * radius;
-                const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-                return (
-                  <div
-                    key={slice}
-                    className="absolute w-24 text-center transform -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                      left: `calc(50% + ${x}px)`,
-                      top: `calc(50% + ${y}px)`,
-                    }}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-secondary border-2 border-primary/20 flex items-center justify-center mx-auto mb-1">
-                      <span className="text-primary font-bold text-sm">{index + 1}</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground font-medium">{slice}</span>
-                  </div>
-                );
-              })}
-
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 320 320">
-                <circle
-                  cx="200"
-                  cy="200"
-                  r="140"
-                  fill="none"
-                  stroke="hsl(var(--primary))"
-                  strokeWidth="1"
-                  strokeDasharray="4 4"
-                  opacity="0.6"
-                />
-              </svg>
-            </div>
-          
-          </div>
-
-          {/* Value Stack */}
+          <Image src="/assets/images/diagram-01.svg" alt="Framework Diagram" width={1000} height={1000} />
           <div className="bg-secondary rounded-2xl p-8 border border-border">
             <h3 className="text-xl font-bold text-foreground mb-2">
               What's inside the Website Revenue Plan
@@ -107,7 +55,6 @@ export const FrameworkDiagram = () => {
             <p className="text-muted-foreground mb-6 text-sm">
               Free for qualified projects—our investment in the relationship.
             </p>
-
             <ul className="space-y-3 mb-6">
               {valueStackItems.map((item) => (
                 <li key={item} className="flex items-center gap-3">

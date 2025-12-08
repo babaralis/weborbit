@@ -8,37 +8,37 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
   title: {
-    default: "Orbitline Digital Studio | Award-Winning Web Design & Digital Marketing Agency",
-    template: "%s | Orbitline Digital Studio",
+    default: "Webs Orbit Studio | Award-Winning Web Design & Digital Marketing Agency",
+    template: "%s | Webs Orbit Studio",
   },
   description: "Award-winning digital marketing, web design and web development for B2B, SaaS and service brands. We build websites that turn traffic into revenue—guaranteed.",
   keywords: ["web design agency", "digital marketing", "B2B website design", "SaaS website", "conversion optimization", "SEO agency"],
-  authors: [{ name: "Orbitline Digital Studio" }],
+  authors: [{ name: "Webs Orbit Studio" }],
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://orbitline.studio",
-    siteName: "Orbitline Digital Studio",
-    title: "Orbitline Digital Studio | Websites That Convert",
+    url: "https://Webs Orbit.studio",
+    siteName: "Webs Orbit Studio",
+    title: "Webs Orbit Studio | Websites That Convert",
     description: "Award-winning digital marketing, web design and web development. Websites that turn traffic into booked calls and revenue—guaranteed.",
     images: [
       {
         url: "https://lovable.dev/opengraph-image-p98pqg.png",
         width: 1200,
         height: 630,
-        alt: "Orbitline Digital Studio",
+        alt: "Webs Orbit Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@OrbitlineDigital",
-    title: "Orbitline Digital Studio | Websites That Convert",
+    site: "@Webs OrbitDigital",
+    title: "Webs Orbit Studio | Websites That Convert",
     description: "Award-winning digital marketing, web design and web development. Websites that turn traffic into booked calls and revenue—guaranteed.",
     images: ["https://lovable.dev/opengraph-image-p98pqg.png"],
   },
   alternates: {
-    canonical: "https://orbitline.studio",
+    canonical: "https://Webs Orbit.studio",
   },
 };
 

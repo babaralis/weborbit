@@ -10,20 +10,14 @@ import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { useEffect, useRef, useState } from "react";
 import { TestimonialBand } from "@/components/sections/TestimonialBand";
 import { FinalTestimonial } from "@/components/sections/FinalTestimonial";
-
-// Helper: number + suffix alag kare
 const parseStatValue = (value: string) => {
-  // Handle cases like "+28%", "2×", "47%"
   const match = value.match(/^([+]?)([\d.]+)([%×x]?)$/i);
   if (!match) return { number: 0, prefix: "", suffix: "" };
-
   const prefix = match[1] || "";
   const number = parseFloat(match[2]);
   const suffix = match[3] || "";
-
   return { number, prefix, suffix };
 };
-
 type StatProps = {
   value: string;
   label: string;
@@ -33,7 +27,6 @@ const beforeAfter = [
   { before: "Random site structure", after: "Architecture based on user behavior" },
   { before: "Hoping for leads", after: "Conversion paths backed by analytics" },
 ];
-
 const valueStack = [
   "Website + funnel audit",
   "SEO & opportunity map",
@@ -45,49 +38,37 @@ const AnimatedStat: React.FC<StatProps> = ({ value, label }) => {
   const [displayValue, setDisplayValue] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
-
-          const duration = 1500; // ms
+          const duration = 1500;
           const start = performance.now();
-
           const animate = (now: number) => {
             const progress = Math.min((now - start) / duration, 1);
             const current = target * progress;
             setDisplayValue(current);
-
             if (progress < 1) {
               requestAnimationFrame(animate);
             }
           };
-
           requestAnimationFrame(animate);
         }
       },
       { threshold: 0.3 }
     );
-
     observer.observe(el);
-
     return () => observer.disconnect();
   }, [hasAnimated, target]);
-
   const isInteger = Number.isInteger(target);
   const formatted = isInteger
     ? Math.round(displayValue).toString()
     : displayValue.toFixed(0);
-
-  // Handle special case for "2×"
   const displaySuffix = suffix.toLowerCase() === "×" || suffix.toLowerCase() === "x" ? "×" : suffix;
-
   return (
     <div ref={ref} className="text-center p-6 bg-secondary rounded-xl">
       <p className="text-4xl md:text-5xl font-bold text-primary mb-2">
@@ -101,9 +82,7 @@ const AnimatedStat: React.FC<StatProps> = ({ value, label }) => {
 export default function WebDevelopmentPage() {
   return (
     <>
-    {/* HERO SECTION */}
-    <section className="pt-[12rem] hero-section text-white py-16 md:py-24 lg:py-28 relative overflow-hidden min-h-[70vh] md:min-h-[100vh] lg:min-h-[100vh]" style={{paddingTop: '12rem'}}>
-      {/* Background Image */}
+    <section className="pt-[12rem] hero-section text-white py-16 md:py-24 lg:py-28 relative overflow-hidden" style={{paddingTop: '12rem'}}>
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
           src="/assets/images/web-banner.jpg"
@@ -113,47 +92,35 @@ export default function WebDevelopmentPage() {
           priority
         />
       </div>
-      
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/50 z-10"></div>
       <div className="absolute inset-0 bg-black/40 z-10"></div>
-      
-      {/* Orange Radial Gradient - Right */}
       <div 
         className="absolute inset-0 z-10 pointer-events-none top-[-22rem]"
         style={{
           background: 'radial-gradient(circle at right center, rgba(249, 112, 21, 0.4) 0%, transparent 23%)'
         }}
       ></div>
-      
-      {/* Orange Radial Gradient - Left */}
       <div 
         className="absolute inset-0 z-10 pointer-events-none bottom-[-22rem]"
         style={{
           background: 'radial-gradient(circle at left center, rgba(249, 112, 21, 0.4) 0%, transparent 23%)'
         }}
       ></div>
-      
       <div className="container-wide relative z-20 flex justify-center">
         <div className="grid grid-cols-12 items-center justify-center">
-          {/* Heading + description (centered, col-10 on desktop/iPad Pro) */}
           <div className="col-span-12 lg:col-span-10 lg:col-start-2 text-center">
             <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wider">
               Web Design & Development Services
             </p>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Custom web development that turns traffic into{" "}
               <span className="text-primary">booked calls.</span>
             </h1>
-
             <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed max-w-3xl mx-auto">
               We design, write, and build websites that generate qualified leads in 90 days
               or less—or we keep optimizing at no extra cost.
             </p>
           </div>
-
-          {/* Points – full width (col-12), 3 in one row on desktop */}
           <div className="col-span-12">
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 w-full innerbannerullist">
               {[
@@ -171,44 +138,17 @@ export default function WebDevelopmentPage() {
               ))}
             </ul>
           </div>
-
-          {/* Buttons centered – again col-10 on desktop/iPad Pro */}
           <div className="col-span-12 lg:col-span-10 lg:col-start-2">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="xl" asChild>
                 <Link href="#build-plan-section">Get Your Website Build Plan</Link>
               </Button>
-
-              {/* <Button variant="hero-link" size="xl" className="gap-2">
-                <Play className="w-4 h-4" />
-                Watch how we build sites
-              </Button> */}
             </div>
           </div>
-
-          {/* Video Thumbnail */}
-          {/* (comment left as-is) */}
-          {/* <div className="relative">
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
-              <img
-                src="https://www.orbitmedia.com/wp-content/uploads/2023/07/web-dev-video-poster.jpg"
-                alt="Web development process video thumbnail showing our team at work"
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/20 transition-colors cursor-pointer">
-                <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-lg">
-                  <Play className="w-8 h-8 text-white ml-1" />
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </section>
-
-    <LogoStrip />
-
-      {/* PROBLEM + OUTCOMES SECTION */}
+      <LogoStrip />
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -220,7 +160,6 @@ export default function WebDevelopmentPage() {
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 Most redesigns look better but don't move the numbers. Teams spend six figures on a shiny new site, only to watch conversions stay flat—or drop.
               </p>
-
               <p className="font-semibold text-foreground mb-3">Common problems we help you avoid:</p>
               <ul className="space-y-2 mb-8 text-muted-foreground">
                 {[
@@ -235,7 +174,6 @@ export default function WebDevelopmentPage() {
                   </li>
                 ))}
               </ul>
-
               <p className="font-semibold text-foreground mb-3">Here's what we aim for instead:</p>
               <ul className="space-y-2 text-foreground">
                 {[
@@ -251,8 +189,6 @@ export default function WebDevelopmentPage() {
                 ))}
               </ul>
             </div>
-
-            {/* Device Mockup */}
             <div className="relative">
               <img
                 src="assets/images/web-development/web-01.png"
@@ -263,8 +199,6 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* ALIGNED SERVICES CARDS */}
       <section className="section-padding bg-[#f970151c]">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
@@ -330,15 +264,9 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* AI INSIGHTS SECTION */}
       <TestimonialBand />
-
-      {/* PORTFOLIO GRID */}
-      <PortfolioSection limit={8} />
-
-      {/* BUILD PLAN / VALUE STACK SECTION */}
-      <section id="build-plan-section" className="section-padding bg-[#f970151c]">
+      <PortfolioSection/>
+      <section id="build-plan-section" className="section-padding bg-secondary">
         <div className="container-wide">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
@@ -352,12 +280,10 @@ export default function WebDevelopmentPage() {
               <p className="text-muted-foreground mb-8">
                 If you don't find the plan useful, you keep the strategy and we part as friends. No hard feelings.
               </p>
-
               <Button variant="default" size="xl" asChild>
                 <Link href="#build-plan-section">Get Your Website Build Plan</Link>
               </Button>
             </div>
-
             <div className="bg-background rounded-2xl p-8 border border-border">
               <h3 className="text-xl font-bold text-foreground mb-2">
                 What's Inside Your Website Build Plan
@@ -365,7 +291,6 @@ export default function WebDevelopmentPage() {
               <p className="text-muted-foreground mb-6 text-sm">
                 Everything you need to make an informed decision—delivered in 5–7 business days.
               </p>
-
               <ul className="space-y-4">
                 {[
                   "Deep website & funnel audit",
@@ -383,7 +308,6 @@ export default function WebDevelopmentPage() {
                   </li>
                 ))}
               </ul>
-
               <div className="mt-6 pt-6 border-t border-border">
                 <p className="text-sm text-muted-foreground italic">
                   "The Build Plan alone was worth it—even if we hadn't moved forward, we had a clear roadmap."
@@ -394,8 +318,6 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* LEAD EFFICIENCY / BEFORE-AFTER */}
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
@@ -407,9 +329,7 @@ export default function WebDevelopmentPage() {
               Most websites leak conversions. We plug the holes and build clear paths to action.
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Before */}
             <div className="bg-secondary rounded-xl p-8 border border-border">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-full bg-muted-foreground/20 flex items-center justify-center">
@@ -428,8 +348,6 @@ export default function WebDevelopmentPage() {
                 <p className="text-sm text-muted-foreground">Average conversion rate</p>
               </div>
             </div>
-
-            {/* After */}
             <div className="bg-primary/5 rounded-xl p-8 border border-primary/20">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
@@ -449,7 +367,6 @@ export default function WebDevelopmentPage() {
               </div>
             </div>
           </div>
-
           <div className="grid md:grid-cols-3 gap-6 mt-8">
             {[
               { value: "+28%", label: "Form submissions" },
@@ -465,9 +382,7 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* FAQs SECTION */}
-      <section className="section-padding bg-[#f970151c]">
+      <section className="section-padding bg-secondary">
         <div className="container-wide">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
@@ -476,7 +391,6 @@ export default function WebDevelopmentPage() {
                 <span className="text-primary">before they hire us.</span>
               </h2>
             </div>
-
             <div className="bg-background rounded-xl p-6 md:p-8 border border-border">
               <details className="border-b border-border py-4">
                 <summary className="cursor-pointer font-semibold text-foreground">How long does a typical web development project take?</summary>
@@ -518,8 +432,6 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* STATS & GRAPHS */}
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
@@ -529,7 +441,6 @@ export default function WebDevelopmentPage() {
             </h2>
           </div>
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* Bar Chart */}
             <div className="bg-secondary rounded-xl p-8 border border-border">
               <h3 className="font-semibold text-foreground mb-6">Conversion Rate: Old vs New Website</h3>
               <div className="space-y-4">
@@ -556,19 +467,14 @@ export default function WebDevelopmentPage() {
                 Average improvement: 3× conversion rate within 90 days of launch
               </p>
             </div>
-
-            {/* Line Chart Mockup */}
             <div className="bg-secondary rounded-xl p-8 border border-border">
               <h3 className="font-semibold text-foreground mb-6">Pipeline Sourced from Website (12 months)</h3>
               <div className="h-48 relative">
                 <svg className="w-full h-full" viewBox="0 0 400 180">
-                  {/* Grid */}
                   <line x1="40" y1="150" x2="380" y2="150" stroke="hsl(var(--border))" strokeWidth="1" />
                   <line x1="40" y1="110" x2="380" y2="110" stroke="hsl(var(--border))" strokeWidth="1" strokeDasharray="4" />
                   <line x1="40" y1="70" x2="380" y2="70" stroke="hsl(var(--border))" strokeWidth="1" strokeDasharray="4" />
                   <line x1="40" y1="30" x2="380" y2="30" stroke="hsl(var(--border))" strokeWidth="1" strokeDasharray="4" />
-
-                  {/* Line */}
                   <path
                     d="M 40 140 L 80 135 L 120 130 L 160 120 L 200 90 L 240 70 L 280 55 L 320 45 L 360 35"
                     fill="none"
@@ -576,19 +482,13 @@ export default function WebDevelopmentPage() {
                     strokeWidth="3"
                     strokeLinecap="round"
                   />
-
-                  {/* Area */}
                   <path
                     d="M 40 140 L 80 135 L 120 130 L 160 120 L 200 90 L 240 70 L 280 55 L 320 45 L 360 35 L 360 150 L 40 150 Z"
                     fill="hsl(var(--primary))"
                     opacity="0.1"
                   />
-
-                  {/* Launch marker */}
                   <line x1="160" y1="30" x2="160" y2="150" stroke="hsl(var(--primary))" strokeWidth="1" strokeDasharray="4" />
                   <text x="160" y="20" className="text-xs fill-primary" textAnchor="middle">Launch</text>
-
-                  {/* Labels */}
                   <text x="40" y="165" className="text-xs fill-muted-foreground">Jan</text>
                   <text x="160" y="165" className="text-xs fill-muted-foreground">Apr</text>
                   <text x="280" y="165" className="text-xs fill-muted-foreground">Aug</text>
@@ -602,8 +502,6 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* WHO IT'S FOR / NOT FOR */}
       <section className="section-padding bg-secondary">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
@@ -612,9 +510,7 @@ export default function WebDevelopmentPage() {
               <span className="text-primary">a new website build.</span>
             </h2>
           </div>
-
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* For You */}
             <div className="bg-background rounded-xl p-8 border border-border">
               <div className="flex items-center gap-2 mb-6">
                 <Check className="w-6 h-6 text-green-500" />
@@ -635,8 +531,6 @@ export default function WebDevelopmentPage() {
                 ))}
               </ul>
             </div>
-
-            {/* Not For You */}
             <div className="bg-background rounded-xl p-8 border border-border">
               <div className="flex items-center gap-2 mb-6">
                 <X className="w-6 h-6 text-red-500" />
@@ -660,8 +554,6 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
-
-      {/* PROCESS SECTION */}
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="text-center mb-12 lg:mb-16">
@@ -673,13 +565,10 @@ export default function WebDevelopmentPage() {
               Clear phases, milestone check-ins, and predictable project management. No runaway scope, no surprise invoices.
             </p>
           </div>
-
           <div className="relative">
-            {/* Timeline */}
             <div className="hidden md:block absolute top-8 left-0 right-0 h-1 bg-border">
               <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary to-primary/30"></div>
             </div>
-
             <div className="grid md:grid-cols-5 gap-6">
               {[
                 { step: "01", title: "Discovery & Build Plan", duration: "Week 1-2" },
@@ -700,20 +589,9 @@ export default function WebDevelopmentPage() {
               ))}
             </div>
           </div>
-
-          {/* <div className="mt-12 bg-primary/5 rounded-xl p-8 border border-primary/20 max-w-3xl mx-auto">
-            <h3 className="font-bold text-foreground mb-2">Our Guarantee</h3>
-            <p className="text-muted-foreground">
-              If we don't improve your key website metrics within 90 days of launch, we'll keep optimizing at no extra cost until we do. You have nothing to lose.
-            </p>
-          </div> */}
         </div>
       </section>
-
-      {/* FINAL TESTIMONIAL */}
       <FinalTestimonial />
-
-      {/* FINAL CTA */}
       <section className="py-20 md:py-[12rem] bg-primary">
         <div className="container-wide">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">

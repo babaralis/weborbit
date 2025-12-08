@@ -8,8 +8,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact | Orbitline Digital Studio",
-  description: "Get in touch with Orbitline. Share your goals and we'll reply with clear next steps.",
+  title: "Contact | Webs Orbit Studio",
+  description: "Get in touch with Webs Orbit. Share your goals and we'll reply with clear next steps.",
 };
 
 const serviceLinks = [
@@ -93,7 +93,7 @@ export default function ContactPage({
             <div className="lg:col-span-2">
               <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                  Work with Orbitline
+                  Work with Webs Orbit
                 </h1>
                 <p className="text-lg text-muted-foreground">
                   Ready to talk? Fill out the form and one of our senior strategists will review 
@@ -217,7 +217,7 @@ export default function ContactPage({
 
             <div className="space-y-8">
               <div>
-                <h3 className="font-bold text-foreground mb-2">Orbitline Support</h3>
+                <h3 className="font-bold text-foreground mb-2">Webs Orbit Support</h3>
                 <p className="text-muted-foreground text-sm mb-2">
                   Are you a current client with questions about your site?
                 </p>
@@ -226,7 +226,7 @@ export default function ContactPage({
                 </Link>
               </div>
               <div>
-                <h3 className="font-bold text-foreground mb-2">Visit Orbitline</h3>
+                <h3 className="font-bold text-foreground mb-2">Visit Webs Orbit</h3>
                 <p className="text-muted-foreground text-sm">
                   123 Digital Avenue, Suite 400<br />
                   Chicago, IL 60601

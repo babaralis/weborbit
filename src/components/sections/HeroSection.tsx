@@ -83,7 +83,7 @@ export const HeroSection = () => {
                 </Button>
               </div>
             </form>
-            <ul className="space-y-3 mb-8 flex  justify-center mx-auto gap-[1rem] lg:block hidden">
+            <ul className="space-y-3 mb-8 lg:flex  justify-center mx-auto gap-[1rem] block hidden">
               <li className="flex items-center gap-2 text-white/90 mt-2">
                 <Check className="w-5 h-5 text-primary flex-shrink-0" />
                 <span>More qualified demo requests</span>

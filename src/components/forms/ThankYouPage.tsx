@@ -26,7 +26,7 @@ export function ThankYouPage() {
       <header className="relative z-[10000] w-full py-4 px-6 bg-transparent">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="text-2xl font-bold text-white">
-            Orbitline Digital Studio
+            Webs Orbit Studio
           </div>
         </div>
       </header>

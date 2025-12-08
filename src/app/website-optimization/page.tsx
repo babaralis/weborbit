@@ -134,14 +134,14 @@ export default function WebsiteOptimizationPage() {
                 </Button>
               </div>
             </div>
-            <div>
+            {/* <div>
               <Image
                 src="/assets/images/web-optimization/banner.png"
                 alt="Website Optimization Banner"
                 width={500}
                 height={500}
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

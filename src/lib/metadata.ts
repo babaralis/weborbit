@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-const siteName = "Orbitline Digital Studio";
-const baseUrl = "https://orbitline.studio";
+const siteName = "Webs Orbit Studio";
+const baseUrl = "https://Webs Orbit.studio";
 
 export function generatePageMetadata({
   title,
@@ -50,7 +50,7 @@ export function generatePageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      site: "@OrbitlineDigital",
+      site: "@Webs OrbitDigital",
       title: fullTitle,
       description,
       images: [ogImage],

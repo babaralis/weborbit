@@ -2,23 +2,19 @@ import Link from "next/link";
 
 const footerLinks = {
   quickLinks: [
-    { label: "Web Design", href: "/web-development" },
     { label: "Web Development", href: "/web-development" },
     { label: "Website Optimization", href: "/website-optimization" },
-    { label: "SEO Services", href: "/website-optimization" },
-    { label: "CRO Services", href: "/website-optimization" },
+    {label:"AI Agent", href:"/ai-agent"},
+    { label: "Pricing", href: "/pricing" },
     { label: "Portfolio", href: "/portfolio" },
   ],
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Our Team", href: "/about" },
-    { label: "Careers", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],
   resources: [
-    { label: "Case Studies", href: "/about" },
-    { label: "Website Audit", href: "/contact" },
-    { label: "Newsletter", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-conditions" },
   ],
 };
 
@@ -38,22 +34,17 @@ export const Footer = () => {
           </Link>
         </div>
       </div>
-
       <div className="container-wide section-padding-sm">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">O</span>
               </div>
-              <span className="font-bold text-lg">Orbitline Digital</span>
+              <span className="font-bold text-lg">Webs Orbit</span>
             </Link>
             <p className="text-white/60 text-sm mb-4">
               Award-winning digital marketing, web design and development for B2B, SaaS and service brands.
-            </p>
-            <p className="text-white/40 text-sm">
-              © {new Date().getFullYear()} Orbitline Digital Studio. All rights reserved.
             </p>
           </div>
           <div>
@@ -71,7 +62,6 @@ export const Footer = () => {
               ))}
             </ul>
           </div>
-
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2">
@@ -87,9 +77,8 @@ export const Footer = () => {
               ))}
             </ul>
           </div>
-
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
@@ -104,17 +93,12 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/40">
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
+          <p className="text-white/40 text-sm">
+              © {new Date().getFullYear()} Webs Orbit All rights reserved.
+            </p>
           </div>
-          <p>Made with precision in Chicago</p>
         </div>
       </div>
     </footer>

@@ -18,7 +18,7 @@ const testimonials = [
     companyName: "GrowthMetrics",
     companyTagline: "B2B Analytics Platform",
     quote:
-      "Before working with Orbitline our site looked fine but did nothing. Now it's a core part of our sales process—and our team actually loves using it.",
+      "Before working with Webs Orbit our site looked fine but did nothing. Now it's a core part of our sales process—and our team actually loves using it.",
     person: "Marcus Thompson",
     role: "CEO",
   },
@@ -28,7 +28,7 @@ const testimonials = [
     companyName: "RevenuePilot",
     companyTagline: "SaaS Growth Studio",
     quote:
-      "Orbitline turned our brochure site into a real sales engine. Demo bookings went up and the messaging finally matches what we actually do.",
+      "Webs Orbit turned our brochure site into a real sales engine. Demo bookings went up and the messaging finally matches what we actually do.",
     person: "Elena Rodriguez",
     role: "Head of Marketing",
   },

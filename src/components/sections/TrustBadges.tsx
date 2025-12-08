@@ -45,7 +45,7 @@ export const TrustBadges = () => {
         {/* Mini Testimonial */}
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-muted-foreground italic">
-            "Orbitline didn't just build us a website—they built us a marketing asset that 
+            "Webs Orbit didn't just build us a website—they built us a marketing asset that 
             generates leads every single day."
           </p>
           <p className="text-sm text-muted-foreground mt-2">

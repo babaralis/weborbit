@@ -290,7 +290,7 @@ export function ContactModal({ isOpen, onClose, planName }: ContactModalProps) {
               <h3 className="text-lg font-bold text-foreground mb-3">Contact Information</h3>
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>
-                  <strong className="text-foreground">Email:</strong> info@orbitline.com
+                  <strong className="text-foreground">Email:</strong> info@Webs Orbit.com
                 </p>
                 <p>
                   <strong className="text-foreground">Phone:</strong> (312) 555-0123

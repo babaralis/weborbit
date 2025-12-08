@@ -286,12 +286,6 @@ body {
   font-size: .9rem
 }
 
-.innerbannerullist>li {
-  border: .6px solid #f97015;
-  border-radius: .5rem;
-  padding: .6rem;
-}
-
 
 @media (min-width: 1024px) {
   .testimonial-swiper .swiper-pagination {

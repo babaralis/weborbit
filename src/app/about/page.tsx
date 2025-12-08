@@ -104,7 +104,7 @@ export default function AboutPage() {
               Building <span className="text-[#f97015]">websites that build</span> businesses, since 2012
             </h1>
             <p className="text-xl text-white/80 mb-4">
-              Orbitline Digital Studio exists to make the web more effective — one high-performing 
+              Webs Orbit Studio exists to make the web more effective — one high-performing 
               website at a time. We combine strategy, design, development, SEO, and CRO under one 
               roof to create sites that actually drive revenue.
             </p>
@@ -124,13 +124,13 @@ export default function AboutPage() {
                 Meet the <span className="text-[#f97015]">experts</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-4">
-                The Orbitliners are specialists in web design, development, digital strategy, and 
+                The Webs Orbitrs are specialists in web design, development, digital strategy, and 
                 website optimization. We're focused, curious, and deeply committed to outcomes.
               </p>
               <p className="text-muted-foreground mb-6">
                 Our edge isn't size — it's skill density. Every expert here is a direct contributor 
                 to growth outcomes. No layers of account managers or junior staff learning on your 
-                project. When you work with Orbitline, you work with senior operators who've done 
+                project. When you work with Webs Orbit, you work with senior operators who've done 
                 this hundreds of times.
               </p>
               <Button asChild>
@@ -144,7 +144,7 @@ export default function AboutPage() {
               <div className="aspect-video rounded-xl overflow-hidden bg-secondary relative group cursor-pointer">
                 <img
                   src="https://www.orbitmedia.com/wp-content/uploads/2023/06/stephanie-walker-1200x1050-1-600x525.jpg"
-                  alt="Orbitline team collaboration session"
+                  alt="Webs Orbit team collaboration session"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-foreground/30 flex items-center justify-center group-hover:bg-foreground/40 transition-colors">
@@ -154,7 +154,7 @@ export default function AboutPage() {
                 </div>
               </div>
               <p className="text-center text-sm text-muted-foreground mt-3 font-medium">
-                We're the Orbitliners
+                We're the Webs Orbitrs
               </p>
             </div>
           </div>
@@ -187,7 +187,7 @@ export default function AboutPage() {
         <div className="container-wide">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Are you the next Orbitliner?
+              Are you the next Webs Orbitr?
             </h2>
             <p className="text-lg text-primary-foreground/80 mb-8">
               If you're skilled, curious, and love making digital work better, you belong here. 
