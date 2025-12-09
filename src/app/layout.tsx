@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description: "Award-winning digital marketing, web design and web development for B2B, SaaS and service brands. We build websites that turn traffic into revenue—guaranteed.",
   keywords: ["web design agency", "digital marketing", "B2B website design", "SaaS website", "conversion optimization", "SEO agency"],
   authors: [{ name: "Webs Orbit Studio" }],
+  icons: {
+    icon: "/assets/images/favicon.svg",
+    shortcut: "/assets/images/favicon.svg",
+    apple: "/assets/images/favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
