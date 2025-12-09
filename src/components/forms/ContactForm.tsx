@@ -10,10 +10,17 @@ import { submitContactEmail } from "@/lib/email";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 
+// Extend Window interface to include gtag
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, params: Record<string, string>) => void;
+  }
+}
+
 // Analytics tracking helper
 const trackEvent = (event: { action: string; category: string; label: string }) => {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', event.action, {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', event.action, {
       event_category: event.category,
       event_label: event.label,
     });
