@@ -45,7 +45,7 @@ export default async function HomePage({
       <CROSection />
       <ProcessSection />
       <TrustBadges />
-      <PortfolioSection limit={6} />
+      <PortfolioSection />
       <StorytellingSection />
       <CMSSection />
       <FrameworkDiagram />
