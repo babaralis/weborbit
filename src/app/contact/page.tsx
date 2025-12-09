@@ -1,7 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { ContactForm } from "@/components/forms/ContactForm";
 import Link from "next/link";
 import { ArrowRight, Twitter, Facebook, Linkedin, Youtube } from "lucide-react";
 import Image from "next/image";
@@ -39,17 +36,7 @@ const serviceLinks = [
   },
 ];
 
-export default function ContactPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const sent =
-    typeof searchParams?.sent === "string"
-      ? searchParams?.sent === "1"
-      : Array.isArray(searchParams?.sent)
-      ? searchParams?.sent?.[0] === "1"
-      : false;
+export default function ContactPage() {
   return (
     <>
       <section className="hero-section text-white py-16 md:py-24 lg:py-28 relative overflow-hidden" style={{ paddingTop: '10rem' }}>
@@ -102,117 +89,7 @@ export default function ContactPage({
                   website performance gains.
                 </p>
               </div>
-              <div className="bg-background rounded-xl p-6 md:p-8 border border-border">
-                <p className="text-sm text-muted-foreground mb-6">
-                  <span className="text-primary">*</span> indicates required fields
-                </p>
-                {sent && (
-                  <div className="mb-6 rounded-lg border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800">
-                    Message sent! We'll get back to you within 1 business day with next steps.
-                  </div>
-                )}
-                <form method="post" action="/api/contact" className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName" className="sr-only">First Name</Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        placeholder="First Name *"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName" className="sr-only">Last Name</Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        placeholder="Last Name *"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="email" className="sr-only">Work Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="Work Email *"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="phone" className="sr-only">Phone</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        placeholder="Phone"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="companyName" className="sr-only">Company Name</Label>
-                      <Input
-                        id="companyName"
-                        name="companyName"
-                        placeholder="Company Name"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="companyWebsite" className="sr-only">Company Website</Label>
-                      <Input
-                        id="companyWebsite"
-                        name="companyWebsite"
-                        placeholder="Company Website"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message" className="sr-only">Tell us about your needs</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Tell us about your needs *"
-                      rows={6}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="hearAboutUs" className="sr-only">How did you hear about us?</Label>
-                    <Input
-                      id="hearAboutUs"
-                      name="hearAboutUs"
-                      placeholder="How did you hear about us?"
-                    />
-                  </div>
-
-                  <p className="text-sm text-muted-foreground">
-                    By clicking the button below, you are agreeing to our{" "}
-                    <Link href="/privacy" className="text-primary hover:underline">
-                      Privacy Policy
-                    </Link>
-                    .
-                  </p>
-
-                  <Button type="submit" size="lg">
-                    Send my message
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-
-                  <p className="text-sm text-muted-foreground">
-                    Speak directly with a strategist — no junior reps. We aim to provide clarity 
-                    in the first reply.
-                  </p>
-                </form>
-              </div>
+              <ContactForm />
             </div>
 
             <div className="space-y-8">
