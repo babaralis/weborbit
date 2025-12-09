@@ -3,43 +3,40 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { motion, Variants, useInView } from "framer-motion";
 
-interface FadeInProps {
+interface StaggerChildrenProps {
   children: ReactNode;
-  direction?: "up" | "down" | "left" | "right" | "none";
-  delay?: number;
-  duration?: number;
+  staggerDelay?: number;
   className?: string;
 }
 
-const getVariants = (direction: FadeInProps["direction"]): Variants => {
-  const directions = {
-    up: { y: 40 },
-    down: { y: -40 },
-    left: { x: 40 },
-    right: { x: -40 },
-    none: {},
-  };
-
-  return {
-    hidden: {
-      opacity: 0,
-      ...directions[direction || "up"],
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
     },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-    },
-  };
+  },
 };
 
-export function FadeIn({
+export const staggerItemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
+export function StaggerChildren({
   children,
-  direction = "up",
-  delay = 0,
-  duration = 0.6,
+  staggerDelay = 0.1,
   className,
-}: FadeInProps) {
+}: StaggerChildrenProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, margin: "-100px" });
   const [shouldAnimate, setShouldAnimate] = useState(false);
@@ -78,14 +75,32 @@ export function FadeIn({
       ref={ref}
       initial="hidden"
       animate={shouldAnimate || isInView ? "visible" : "hidden"}
-      variants={getVariants(direction)}
-      transition={{
-        duration,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1],
+      variants={{
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: staggerDelay,
+            delayChildren: 0.1,
+          },
+        },
       }}
       className={className}
     >
+      {children}
+    </motion.div>
+  );
+}
+
+export function StaggerItem({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div variants={staggerItemVariants} className={className}>
       {children}
     </motion.div>
   );
