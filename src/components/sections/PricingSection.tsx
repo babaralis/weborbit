@@ -1,19 +1,41 @@
 "use client";
 
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import Link from "next/link";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { ContactModal } from "@/components/modals/ContactModal";
-import { useState } from "react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Check, ArrowRight, Sparkles, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const pricingData = {
-  "html-website": [
-    {
-      name: "SINGLE PAGE",
-      description: "",
+type Plan = {
+  name: string;
+  price: string;
+  description?: string;
+  features: string[];
+  popular?: boolean;
+  cta: string;
+};
+
+type TabId = "html" | "cms" | "ecom" | "portal";
+
+type PricingTab = {
+  id: TabId;
+  label: string;
+  subLabel: string;
+  plans: Plan[];
+};
+
+const pricingTabs: PricingTab[] = [
+  // ---------- HTML WEBSITE ----------
+  {
+    id: "html",
+    label: "HTML Website",
+    subLabel: "",
+    plans: [
+      {
+        name: "Single Page",
       price: "$299",
-      priceNote: "",
       features: [
         "1 Page Static Website",
         "W3C Certified HTML",
@@ -31,13 +53,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "5 PAGES",
-      description: "",
+        name: "5 Pages",
       price: "$499",
-      priceNote: "",
       features: [
         "5 Pages Static Website",
         "W3C Certified HTML",
@@ -55,14 +74,12 @@ const pricingData = {
         "Advance UI/UX Effects",
         "Social Media Integrations",
       ],
+        popular: true,
       cta: "Order Now",
-      popular: true,
     },
     {
-      name: "8 PAGES",
-      description: "",
+        name: "8 Pages",
       price: "$699",
-      priceNote: "",
       features: [
         "8 Pages Static Website",
         "W3C Certified HTML",
@@ -82,13 +99,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "12 PAGES",
-      description: "",
+        name: "12 Pages",
       price: "$899",
-      priceNote: "",
       features: [
         "12 Pages Static Website",
         "W3C Certified HTML",
@@ -108,15 +122,19 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
-    },
-  ],
-  "cms-website": [
-    {
-      name: "SINGLE PAGE CMS WEBSITE",
-      description: "",
+      },
+    ],
+  },
+
+  // ---------- CMS WEBSITE ----------
+  {
+    id: "cms",
+    label: "CMS Website",
+    subLabel: "",
+    plans: [
+      {
+        name: "Single Page CMS Website",
       price: "$399",
-      priceNote: "",
       features: [
         "1 Page Custom Website",
         "CMS Admin Panel",
@@ -133,13 +151,11 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "5 PAGES CMS WEBSITE",
-      description: "",
+        name: "5 Pages CMS Website",
       price: "$799",
-      priceNote: "",
+        popular: true,
       features: [
         "5 Pages Custom Website",
         "CMS Admin Panel",
@@ -158,13 +174,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: true,
     },
     {
-      name: "8 PAGES CMS WEBSITE",
-      description: "",
+        name: "8 Pages CMS Website",
       price: "$999",
-      priceNote: "",
       features: [
         "8 Pages Custom Website",
         "CMS Admin Panel",
@@ -184,13 +197,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "12 PAGES CMS WEBSITE",
-      description: "",
+        name: "12 Pages CMS Website",
       price: "$1299",
-      priceNote: "",
       features: [
         "12 Pages Custom Website",
         "CMS Admin Panel",
@@ -211,15 +221,19 @@ const pricingData = {
         "3 Month LiveChat Support Agent",
       ],
       cta: "Order Now",
-      popular: false,
-    },
-  ],
-  "ecom-website": [
-    {
-      name: "BASIC E-COM WEBSITE",
-      description: "",
+      },
+    ],
+  },
+
+  // ---------- E-COM WEBSITE ----------
+  {
+    id: "ecom",
+    label: "E-Com Website",
+    subLabel: "",
+    plans: [
+      {
+        name: "Basic E-Com Website",
       price: "$1499",
-      priceNote: "",
       features: [
         "Upto 10 Products & Categories",
         "Product Attributes & Features",
@@ -240,13 +254,11 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "EXTENDED E-COM WEBSITE",
-      description: "",
+        name: "Extended E-Com Website",
       price: "$2499",
-      priceNote: "",
+        popular: true,
       features: [
         "Upto 25 Products & Categories",
         "Product Attributes & Features",
@@ -268,13 +280,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: true,
     },
     {
-      name: "PROFESSIONAL E-COM WEBSITE",
-      description: "",
+        name: "Professional E-Com Website",
       price: "$3999",
-      priceNote: "",
       features: [
         "Upto 50 Products & Categories",
         "Product Attributes & Features",
@@ -304,13 +313,10 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
     },
     {
-      name: "ENTERPRISE E-COM WEBSITE",
-      description: "",
+        name: "Enterprise E-Com Website",
       price: "$5999",
-      priceNote: "",
       features: [
         "Upto 100 Products & Categories",
         "Product Attributes & Features",
@@ -341,15 +347,19 @@ const pricingData = {
         "Social Media Integrations",
       ],
       cta: "Order Now",
-      popular: false,
-    },
-  ],
-  "marketplace-portal": [
-    {
-      name: "PRODUCT BASED MARKETPLACE",
-      description: "Portal",
-      price: "",
-      priceNote: "",
+      },
+    ],
+  },
+
+  // ---------- MARKETPLACE PORTAL ----------
+  {
+    id: "portal",
+    label: "Marketplace Portal",
+    subLabel: "",
+    plans: [
+      {
+        name: "Product Based Marketplace",
+        price: "Portal",
       features: [
         "Unlimited Sellers",
         "Unlimited Selling Products",
@@ -381,13 +391,11 @@ const pricingData = {
         "3 Month LiveChat Agent",
       ],
       cta: "Discuss Now",
-      popular: false,
-    },
-    {
-      name: "SERVICE BASED MARKETPLACE",
-      description: "Portal",
-      price: "",
-      priceNote: "",
+      },
+      {
+        name: "Service Based Marketplace",
+        price: "Portal",
+        popular: true,
       features: [
         "Unlimited Providers",
         "Unlimited Service Offerings",
@@ -418,13 +426,10 @@ const pricingData = {
         "3 Month LiveChat Agent",
       ],
       cta: "Discuss Now",
-      popular: true,
-    },
-    {
-      name: "NETWORKING BASED MARKETPLACE",
-      description: "Portal",
-      price: "",
-      priceNote: "",
+      },
+      {
+        name: "Networking Based Marketplace",
+        price: "Portal",
       features: [
         "Unlimited Users",
         "Multiple User Profiles & Pages",
@@ -449,156 +454,360 @@ const pricingData = {
         "i.e. Social Networking Sites",
       ],
       cta: "Discuss Now",
-      popular: false,
-    },
-  ],
-};
+      },
+    ],
+  },
+];
 
-export const PricingSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export function PricingSection({ className }: { className?: string }) {
+  const [activeTab, setActiveTab] = useState<TabId>("html");
+  const [loading, setLoading] = useState<string | null>(null);
+  const currentTab = pricingTabs.find((tab) => tab.id === activeTab)!;
 
-  const handleButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsModalOpen(true);
+  // Helper function to generate package string
+  const generatePackageString = (tab: PricingTab, plan: Plan): string => {
+    // Extract currency and price from price string (e.g., "$299" -> "USD", "299")
+    const priceMatch = plan.price.match(/\$(\d+)/);
+    const currency = "USD";
+    const price = priceMatch ? priceMatch[1] : "0";
+    const discount = "0";
+
+    // Format: Category-Type-Currency-Price-Discount
+    // Category is the tab label, Type is the plan name
+    // Handle special case: "E-Com Website" -> "ECom"
+    let category = tab.label;
+    if (category.includes("E-Com")) {
+      category = "ECom";
+    } else {
+      // Replace hyphens with spaces for other categories to avoid parsing issues
+      category = category.replace(/\s+/g, " ").replace(/-/g, " ");
+    }
+
+    // Replace hyphens with spaces in type to avoid parsing issues
+    let type = plan.name.replace(/\s+/g, " ").replace(/-/g, " ");
+    type = type.replace(/E Com/g, "ECom"); // Convert "E Com" to "ECom" in type if needed
+
+    return `${category}-${type}-${currency}-${price}-${discount}`;
   };
 
-  const renderPricingCards = (plans: typeof pricingData["html-website"]) => {
-    const gridCols = plans.length === 3 ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2 lg:grid-cols-4";
-    return (
-      <div className={`grid ${gridCols} gap-6 lg:gap-8 mt-10 justify-center mx-auto mt-10`}>
-        {plans.map((plan) => (
-          <div
-            key={plan.name}
-            className={`relative bg-background rounded-2xl p-6 lg:p-8 border popular-pricing-card h-fit ${
-              plan.popular
-                ? "border-primary shadow-xl scale-105"
-                : "border-border"
-            }`}
-          >
-            {plan.popular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                  Most Popular
-                </span>
-              </div>
-            )}
+  // Handle payment button click
+  const handlePayment = async (tab: PricingTab, plan: Plan) => {
+    const packageString = generatePackageString(tab, plan);
 
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-              <div className="mb-2">
-                <span className="text-xs text-muted-foreground">{plan.priceNote}</span>
-              </div>
-              <div className="text-4xl font-bold text-[#f97015]">{plan.price}</div>
-            </div>
+    // Parse the package string
+    const firstHyphen = packageString.indexOf("-");
+    const category = packageString.substring(0, firstHyphen);
+    const rest = packageString.substring(firstHyphen + 1);
+    const parts = rest.split("-");
 
-            <ul className="space-y-3 mb-8">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-3 text-sm">
-                  <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">{feature}</span>
-                </li>
-              ))}
-            </ul>
+    const item_name = `${category} ${parts[0]}`;
+    const currency_code = parts[1];
+    const price = parts[2];
+    const discount = parts[3];
 
-            <Button 
-              variant={plan.popular ? "default" : "outline"} 
-              size="lg" 
-              className="w-full"
-              asChild
-            >
-              <Link href="">{plan.cta}</Link>
-            </Button>
-          </div>
-        ))}
-      </div>
-    );
+    const item = {
+      item_name,
+      price,
+      currency_code,
+      category,
+      discount,
+    };
+
+    setLoading(packageString);
+
+    try {
+      const response = await fetch(
+        "https://payment.websorbit.com/api/payment/ordernow/store",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+          },
+          body: JSON.stringify(item),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success && data.link) {
+        window.open(data.link, "_blank");
+        setLoading(null);
+      } else {
+        console.error("Payment failed:", data);
+        alert(
+          "Payment processing failed. Please try again or contact support."
+        );
+        setLoading(null);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("An error occurred. Please try again or contact support.");
+      setLoading(null);
+    }
   };
 
   return (
-    <section className="section-padding bg-secondary">
-      <div className="container-wide">
-        <div className="text-center mb-10">
+    <section className={cn("py-24 lg:py-32 bg-secondary", className)}>
+      <div className="container">
+        {/* Heading */}
+        <FadeIn className="text-center mb-10 lg:mb-14">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground">
             Transparent pricing for{" "}
             <span className="text-primary">serious teams.</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Every project is unique, but here's a starting point. Get a detailed proposal with your Website Revenue Plan.
+            We create websites that not just fit your expectations, needs, and
+            demands, but are budget-friendly too. Our pricing plans are
+            customized for every business stage.
           </p>
-        </div>
-        <Tabs defaultValue="html-website" className="w-full">
-          <div className="flex justify-center lg:mb-[5rem] mb-[2rem]">
-            <TabsList className="bg-transparent border-none p-0 gap-2">
-              <TabsTrigger
-                value="html-website"
-                className="data-[state=active]:bg-[#f97015] data-[state=active]:text-white data-[state=active]:border-[#f97015] border border-[#f97015] text-[#f97015] bg-transparent px-6 py-2 rounded-md transition-all"
+        </FadeIn>
+
+        {/* Tabs */}
+        <FadeIn className="flex flex-wrap justify-center gap-4 mb-10 lg:mb-12">
+          {pricingTabs.map((tab) => {
+            const isActive = tab.id === activeTab;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={cn(
+                  "inline-flex items-center rounded-lg border px-6 py-2.5 text-sm font-medium transition-all",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary",
+                  isActive
+                    ? "bg-primary text-primary-foreground border-primary shadow-md"
+                    : "bg-transparent border-primary/40 text-primary hover:bg-primary/10"
+                )}
               >
-                HTML Website
-              </TabsTrigger>
-              <TabsTrigger
-                value="cms-website"
-                className="data-[state=active]:bg-[#f97015] data-[state=active]:text-white data-[state=active]:border-[#f97015] border border-[#f97015] text-[#f97015] bg-transparent px-6 py-2 rounded-md transition-all"
-              >
-                CMS Website
-              </TabsTrigger>
-              <TabsTrigger
-                value="ecom-website"
-                className="data-[state=active]:bg-[#f97015] data-[state=active]:text-white data-[state=active]:border-[#f97015] border border-[#f97015] text-[#f97015] bg-transparent px-6 py-2 rounded-md transition-all"
-              >
-                E-Com Website
-              </TabsTrigger>
-              <TabsTrigger
-                value="marketplace-portal"
-                className="data-[state=active]:bg-[#f97015] data-[state=active]:text-white data-[state=active]:border-[#f97015] border border-[#f97015] text-[#f97015] bg-transparent px-6 py-2 rounded-md transition-all"
-              >
-                Marketplace Portal
-              </TabsTrigger>
-            </TabsList>
+                {tab.label}
+              </button>
+            );
+          })}
+        </FadeIn>
+
+        {/* Active tab subtitle */}
+        <FadeIn className="text-center mb-8">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {currentTab.subLabel}
+          </p>
+        </FadeIn>
+
+        {/* Pricing grid */}
+        {currentTab.plans.length <= 3 ? (
+          <div className="flex justify-center">
+            <div className="grid gap-8 mx-auto md:grid-cols-2 lg:grid-cols-3 lg:max-w-5xl">
+              {currentTab.plans.map((plan, index) => (
+                <FadeIn key={plan.name} delay={index * 0.08}>
+                  <motion.div
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Card
+                      className={cn(
+                        "relative overflow-hidden transition-all duration-300 h-full flex flex-col",
+                        plan.popular
+                          ? "border-primary shadow-glow-lg bg-gradient-to-b from-primary/5 to-transparent"
+                          : "border-border/60 hover:border-primary/40 bg-card/60"
+                      )}
+                    >
+                      {plan.popular && (
+                        <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary py-2 text-center">
+                          <span className="text-xs font-semibold text-white flex items-center justify-center gap-1">
+                            <Sparkles className="w-4 h-4" />
+                            Most Popular
+                          </span>
+                        </div>
+                      )}
+
+                      <CardHeader
+                        className={cn(
+                          "text-center pb-0 pt-6",
+                          plan.popular && "pt-14"
+                        )}
+                      >
+                        <h3 className="text-base font-semibold tracking-wide text-foreground mb-1 uppercase">
+                          {plan.name}
+                        </h3>
+                        <div className="mb-3">
+                          <span className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                            {plan.price}
+                          </span>
+                        </div>
+                        {plan.description && (
+                          <p className="text-xs text-muted-foreground">
+                            {plan.description}
+                          </p>
+                        )}
+                      </CardHeader>
+
+                      <CardContent className="pt-6 flex-1 flex flex-col">
+                        <p className="text-xs font-semibold text-foreground mb-3">
+                          Features:
+                        </p>
+                        <ul className="space-y-2.5 mb-7 flex-1">
+                          {plan.features.map((feature, i) => (
+                            <motion.li
+                              key={i}
+                              initial={{ opacity: 0, x: -10 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.03 }}
+                              className="flex items-start gap-2.5"
+                            >
+                              <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
+                              <span className="text-xs text-muted-foreground leading-relaxed">
+                                {feature}
+                              </span>
+                            </motion.li>
+                          ))}
+                        </ul>
+
+                        <Button
+                          variant={plan.popular ? "hero" : "outline"}
+                          size="lg"
+                          className="w-full text-sm font-semibold gap-2"
+                          onClick={() => handlePayment(currentTab, plan)}
+                          disabled={
+                            loading !== null || plan.price === "Portal"
+                          }
+                        >
+                          {loading ===
+                          generatePackageString(currentTab, plan) ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            <>
+                              {plan.cta}
+                              <ArrowRight className="w-4 h-4" />
+                            </>
+                          )}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </FadeIn>
+              ))}
+            </div>
           </div>
+        ) : (
+          <div className="grid gap-8 max-w-6xl mx-auto md:grid-cols-2 lg:grid-cols-4">
+            {currentTab.plans.map((plan, index) => (
+              <FadeIn key={plan.name} delay={index * 0.08}>
+                <motion.div
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  className="h-full"
+                >
+                  <Card
+                    className={cn(
+                      "relative overflow-hidden transition-all duration-300 h-full flex flex-col",
+                      plan.popular
+                        ? "border-primary shadow-glow-lg bg-gradient-to-b from-primary/5 to-transparent"
+                        : "border-border/60 hover:border-primary/40 bg-card/60"
+                    )}
+                  >
+                    {plan.popular && (
+                      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary py-2 text-center">
+                        <span className="text-xs font-semibold text-white flex items-center justify-center gap-1">
+                          <Sparkles className="w-4 h-4" />
+                          Most Popular
+                        </span>
+                      </div>
+                    )}
 
-          <TabsContent value="html-website">
-            {renderPricingCards(pricingData["html-website"])}
-          </TabsContent>
+                    <CardHeader
+                      className={cn(
+                        "text-center pb-0 pt-6",
+                        plan.popular && "pt-14"
+                      )}
+                    >
+                      <h3 className="text-base font-semibold tracking-wide text-foreground mb-1 uppercase">
+                        {plan.name}
+                      </h3>
+                      <div className="mb-3">
+                        <span className="text-3xl md:text-4xl font-display font-bold text-foreground">
+                          {plan.price}
+                        </span>
+                      </div>
+                      {plan.description && (
+                        <p className="text-xs text-muted-foreground">
+                          {plan.description}
+                        </p>
+                      )}
+                    </CardHeader>
 
-          <TabsContent value="cms-website">
-            {renderPricingCards(pricingData["cms-website"])}
-          </TabsContent>
+                    <CardContent className="pt-6 flex-1 flex flex-col">
+                      <p className="text-xs font-semibold text-foreground mb-3">
+                        Features:
+                      </p>
+                      <ul className="space-y-2.5 mb-7 flex-1">
+                        {plan.features.map((feature, i) => (
+                          <motion.li
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.03 }}
+                            className="flex items-start gap-2.5"
+                          >
+                            <Check className="w-4 h-4 text-success shrink-0 mt-0.5" />
+                            <span className="text-xs text-muted-foreground leading-relaxed">
+                              {feature}
+                            </span>
+                          </motion.li>
+                        ))}
+                      </ul>
 
-          <TabsContent value="ecom-website">
-            {renderPricingCards(pricingData["ecom-website"])}
-          </TabsContent>
-
-          <TabsContent value="marketplace-portal">
-            {renderPricingCards(pricingData["marketplace-portal"])}
-          </TabsContent>
-        </Tabs>
-        <div className="mt-[9rem] bg-primary/5 rounded-xl p-8 border border-primary/20 w-full mx-auto text-center">
-          <h3 className="font-bold text-foreground mb-2">Not sure which plan fits?</h3>
-          <p className="text-muted-foreground mb-4">
-            Start with a free Website Revenue Plan. We'll assess your needs and recommend the right scope and investment level.
-          </p>
           <Button 
-            variant="default" 
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsModalOpen(true);
-            }}
-          >
-            Get Your Free Assessment
+                        variant={plan.popular ? "hero" : "outline"}
+                        size="lg"
+                        className="w-full text-sm font-semibold gap-2"
+                        onClick={() => handlePayment(currentTab, plan)}
+                        disabled={loading !== null || plan.price === "Portal"}
+                      >
+                        {loading ===
+                        generatePackageString(currentTab, plan) ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            {plan.cta}
+                            <ArrowRight className="w-4 h-4" />
+                          </>
+                        )}
           </Button>
-        </div>
-      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </FadeIn>
+            ))}
+          </div>
+        )}
 
-      {/* Contact Modal */}
-      <ContactModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}
-        planName="Free Assessment"
-      />
+        {/* Money-back guarantee */}
+        <FadeIn delay={0.4}>
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-3 glass-card px-6 py-4 rounded-xl">
+              <div className="w-10 h-10 rounded-full bg-success/15 flex items-center justify-center">
+                <Check className="w-5 h-5 text-success" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-sm text-foreground">
+                  30-Day Money-Back Guarantee
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Not satisfied? Full refund, no questions asked.
+                </p>
+              </div>
+            </div>
+        </div>
+        </FadeIn>
+      </div>
     </section>
   );
-};
+}
