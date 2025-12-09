@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { ContactModal } from "@/components/modals/ContactModal";
-
+import Image from "next/image";
 const navItems = [
   { label: "Web Development", href: "/web-development" },
   { label: "Website Optimization", href: "/website-optimization" },
@@ -39,17 +39,26 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all ${
-      isScrolled ? "bg-hero/95 border-b border-white/10" : ""
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all ${
+        isScrolled ? "bg-hero/95 border-b border-white/10" : ""
+      }`}
+    >
       <div className="container-wide">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            {/* <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">O</span>
             </div>
-            <span className="text-white font-bold text-lg hidden sm:block">Webs Orbit</span>
+            <span className="text-white font-bold text-lg hidden sm:block">Webs Orbit</span> */}
+            <Image
+              src="/assets/images/Logo-original.svg" // image path inside public folder
+              alt="Client logo"
+              width={200} // required
+              height={200} // required
+              className="h-10 mx-auto "
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -77,7 +86,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="lg:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -90,11 +99,11 @@ export const Navbar = () => {
         {isOpen && (
           <>
             {/* Backdrop */}
-            <div 
+            <div
               className="fixed inset-0 bg-black/60 z-40 lg:hidden"
               onClick={() => setIsOpen(false)}
             ></div>
-            
+
             {/* Sidebar */}
             <div className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-hero border-r border-white/10 z-50 lg:hidden transform transition-transform duration-300 ease-in-out">
               <div className="flex flex-col h-full">
@@ -109,7 +118,7 @@ export const Navbar = () => {
                     <X size={24} />
                   </button>
                 </div>
-                
+
                 {/* Navigation Items */}
                 <div className="flex-1 overflow-y-auto py-4">
                   <div className="flex flex-col">
@@ -129,15 +138,10 @@ export const Navbar = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 {/* CTA Button */}
                 <div className="p-4 border-t border-white/10">
-                  <Button 
-                    variant="hero" 
-                    size="lg" 
-                    className="w-full" 
-                    asChild
-                  >
+                  <Button variant="hero" size="lg" className="w-full" asChild>
                     <Link href="/steps" onClick={() => setIsOpen(false)}>
                       Get Started
                     </Link>
@@ -150,8 +154,8 @@ export const Navbar = () => {
       </div>
 
       {/* Contact Modal */}
-      <ContactModal 
-        isOpen={isModalOpen} 
+      <ContactModal
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         planName="Website Revenue Plan"
       />
