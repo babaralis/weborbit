@@ -335,7 +335,7 @@ export default function WebsiteOptimizationPage() {
             </div>
             <div>
               <img
-                src="https://www.orbitmedia.com/wp-content/uploads/2024/01/seo-team-member.jpg"
+                src="/assets/images/web-optimization/optimization-04.webp"
                 alt="SEO specialist analyzing website performance data"
                 className="rounded-xl shadow-xl w-full"
               />
@@ -350,7 +350,7 @@ export default function WebsiteOptimizationPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://www.orbitmedia.com/wp-content/uploads/2024/01/ab-test-diagram.png"
+                src="/assets/images/web-optimization/optimization-05.webp"
                 alt="A/B testing diagram showing conversion optimization process"
                 className="rounded-xl shadow-xl w-full"
               />
@@ -389,7 +389,7 @@ export default function WebsiteOptimizationPage() {
       {/* WHAT TO EXPECT */}
       <section id="what-to-expect" className="section-padding bg-background">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 max-w-[60rem] mx-auto">
                 What to expect from a <span className="text-[#f97015]">website optimization</span> agency
@@ -418,7 +418,7 @@ export default function WebsiteOptimizationPage() {
             </div>
             <div>
               <img
-                src="https://www.orbitmedia.com/wp-content/uploads/2024/01/website-report-mockup.png"
+                src="/assets/images/web-optimization/optimization-06.webp"
                 alt="Website optimization report and dashboard mockup"
                 className="rounded-xl shadow-xl w-full"
               />

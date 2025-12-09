@@ -786,7 +786,7 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
   const handleClose = () => setSelectedImage(null);
   const canScrollPrev = sliderOffset > 0;
   const canScrollNext = sliderOffset < maxOffset;
-  const translateX = -(sliderOffset * (100 / VISIBLE_TABS));
+  const translateX = -(sliderOffset * (50 / VISIBLE_TABS));
   return (
     <section id="portfolio" className="py-24 lg:py-32 relative overflow-hidden">
       <GridPattern variant="lines" className="opacity-20" />
@@ -930,16 +930,16 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
           if (!open) handleClose();
         }}
       >
-        <DialogContent className="max-w-6xl w-[95vw] h-[90vh] p-0 gap-0">
+        <DialogContent className="max-w-6xl w-[95vw] h-[90vh] p-0 gap-0 overflow-hidden flex flex-col">
           {selectedImage && (
             <>
               <DialogHeader className="sr-only">
                 <DialogTitle>{selectedImage.title}</DialogTitle>
                 <DialogDescription>{selectedImage.description}</DialogDescription>
               </DialogHeader>
-              <div className="relative w-full h-full flex flex-col">
+              <div className="relative w-full h-full flex flex-col min-h-0">
                 {/* Website Image */}
-                <div className="relative flex-1 overflow-y-auto bg-muted flex gap-2 p-2 poppupImage">
+                <div className="relative flex-1 min-h-0 overflow-y-auto bg-muted p-2 poppupImage">
                   {(() => {
                     const { website } = getImagePaths(selectedImage.image);
                     return (
@@ -949,7 +949,7 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
                           alt={`${selectedImage.title} - Website`}
                           width={1200}
                           height={2000}
-                          className="w-full h-auto object-cover rounded-lg"
+                          className="w-full h-auto object-contain rounded-lg"
                           sizes="100vw"
                       priority
                     />
@@ -957,7 +957,7 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
                     );
                   })()}
                 </div>
-                <div className="border-t bg-background p-6">
+                <div className="border-t bg-background p-6 flex-shrink-0">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
