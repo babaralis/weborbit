@@ -8,9 +8,9 @@ import { Menu, X } from "lucide-react";
 import { ContactModal } from "@/components/modals/ContactModal";
 import Image from "next/image";
 const navItems = [
+  { label: "AI Agent", href: "/ai-agent" },
   { label: "Web Development", href: "/web-development" },
   { label: "Website Optimization", href: "/website-optimization" },
-  { label: "AI Agent", href: "/ai-agent" },
   { label: "Pricing", href: "/pricing" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
