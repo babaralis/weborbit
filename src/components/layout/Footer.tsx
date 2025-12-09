@@ -1,10 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = {
   quickLinks: [
     { label: "Web Development", href: "/web-development" },
     { label: "Website Optimization", href: "/website-optimization" },
-    {label:"AI Agent", href:"/ai-agent"},
+    { label: "AI Agent", href: "/ai-agent" },
     { label: "Pricing", href: "/pricing" },
     { label: "Portfolio", href: "/portfolio" },
   ],
@@ -24,7 +25,8 @@ export const Footer = () => {
       <div className="border-b border-white/10">
         <div className="container-wide py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/80 text-center sm:text-left">
-            You're one project away from a website that finally pulls its weight.
+            You're one project away from a website that finally pulls its
+            weight.
           </p>
           <Link
             href="/contact"
@@ -38,19 +40,27 @@ export const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              {/* <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">O</span>
               </div>
-              <span className="font-bold text-lg">Webs Orbit</span>
+              <span className="font-bold text-lg">Webs Orbit</span> */}
+              <Image
+                src="/assets/images/Logo-original.svg" // image path inside public folder
+                alt="Client logo"
+                width={200} // required
+                height={200} // required
+                className="max-w-[10rem]"
+              />
             </Link>
             <p className="text-white/60 text-sm mb-4">
-              Award-winning digital marketing, web design and development for B2B, SaaS and service brands.
+              Award-winning digital marketing, web design and development for
+              B2B, SaaS and service brands.
             </p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-                {footerLinks.quickLinks.map((link) => (
+              {footerLinks.quickLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -95,7 +105,7 @@ export const Footer = () => {
         </div>
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/40">
           <div className="flex gap-6">
-          <p className="text-white/40 text-sm">
+            <p className="text-white/40 text-sm">
               © {new Date().getFullYear()} Webs Orbit All rights reserved.
             </p>
           </div>

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: "Award-winning digital marketing, web design and web development. Websites that turn traffic into booked calls and revenue—guaranteed.",
     images: [
       {
-        url: "https://lovable.dev/opengraph-image-p98pqg.png",
+        url: "/assets/images/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Webs Orbit Studio",
