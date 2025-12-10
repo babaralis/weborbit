@@ -1,11 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Check, X, Play } from "lucide-react";
+import { Check, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { LogoStrip } from "@/components/sections/LogoStrip";
-import { ArrowRight } from "lucide-react";
 import { PortfolioSection } from "@/components/sections/PortfolioSection";
 import { useEffect, useRef, useState } from "react";
 import { TestimonialBand } from "@/components/sections/TestimonialBand";
@@ -22,12 +21,12 @@ type StatProps = {
   value: string;
   label: string;
 };
-const beforeAfter = [
+const _beforeAfter = [
   { before: "Guessing what to put on pages", after: "Content planned from real search data" },
   { before: "Random site structure", after: "Architecture based on user behavior" },
   { before: "Hoping for leads", after: "Conversion paths backed by analytics" },
 ];
-const valueStack = [
+const _valueStack = [
   "Website + funnel audit",
   "SEO & opportunity map",
   "High-intent page blueprint",

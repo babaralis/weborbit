@@ -1,4 +1,4 @@
-export function AbstractShapes({ variant = "hero" }: { variant?: string }) {
+export function AbstractShapes({ variant: _variant = "hero" }: { variant?: string }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Abstract shapes background */}

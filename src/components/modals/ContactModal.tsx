@@ -69,8 +69,8 @@ export function ContactModal({ isOpen, onClose, planName }: ContactModalProps) {
       if (savedScrollY > 0) {
         // Temporarily remove fixed to get accurate measurements
         const bodyStyle = document.body.style;
-        const oldPosition = bodyStyle.position;
-        const oldTop = bodyStyle.top;
+        const _oldPosition = bodyStyle.position;
+        const _oldTop = bodyStyle.top;
         
         bodyStyle.position = '';
         bodyStyle.top = '';

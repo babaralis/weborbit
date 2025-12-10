@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
 import { ContactModal } from "@/components/modals/ContactModal";
 import { useState } from "react";
@@ -16,7 +15,7 @@ const valueStackItems = [
   "30–45 minute walkthrough call",
 ];
 
-const frameworkSlices = [
+const _frameworkSlices = [
   "Strategy",
   "Research",
   "Design",

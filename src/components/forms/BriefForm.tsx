@@ -13,9 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AbstractShapes } from "@/components/graphics/AbstractShapes";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface BriefFormData {
@@ -29,7 +26,7 @@ interface BriefFormData {
 
 export function BriefForm({
   initialCompanyName = "",
-  onClose,
+  onClose: _onClose,
 }: {
   initialCompanyName?: string;
   onClose?: () => void;

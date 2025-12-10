@@ -5,36 +5,8 @@ import Image from "next/image";
 import { PricingSection } from "@/components/sections/PricingSection";
 
 export default function PricingPage() {
-    const [businessName, setBusinessName] = useState("");
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
-        const projectMeta = [
-          { industry: "B2B SaaS", outcome: "+42% demo conversions" },
-          { industry: "Analytics Platform", outcome: "2× organic traffic" },
-          { industry: "Cloud Services", outcome: "+38% lead quality" },
-          { industry: "Consulting", outcome: "3× pipeline sourced" },
-          { industry: "Data Platform", outcome: "+55% time on site" },
-          { industry: "Healthcare Tech", outcome: "+29% form completions" },
-        ];
-      
-        const projects = Array.from({ length: 28 }, (_, index) => {
-          const id = index + 1;
-          const meta = projectMeta[index % projectMeta.length];
-      
-          return {
-            name: `Project ${id.toString().padStart(2, "0")}`,
-            industry: meta.industry,
-            outcome: meta.outcome,
-            image: `/assets/images/portfolio/${id}.jpg`,
-          };
-        })
-        const visibleProjects = projects.slice(0, 30);
-        const handleCloseLightbox = () => setActiveIndex(null);
-        const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      if (businessName.trim()) {
-        window.location.href = `?business=${encodeURIComponent(businessName)}`;
-      }
-    }
+    const [_businessName, _setBusinessName] = useState("");
+    const [_activeIndex, _setActiveIndex] = useState<number | null>(null);
 
   return (
     <>

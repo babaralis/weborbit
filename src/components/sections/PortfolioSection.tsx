@@ -710,7 +710,6 @@ const createTabs = (): string[] => {
 };
 const TABS = createTabs();
 const VISIBLE_TABS_DESKTOP = 6;
-const VISIBLE_TABS_MOBILE = 1;
 const ALL_TAB_LIMIT = 38;
 const CATEGORY_TAB_LIMIT = 38;
 const getImagePaths = (imagePath: string) => {
@@ -731,7 +730,7 @@ const getMockupImagePath = (imagePath: string) => {
   const { mockup } = getImagePaths(imagePath);
   return mockup;
 };
-export function PortfolioSection({ limit }: PortfolioSectionProps) {
+export function PortfolioSection({ limit: _limit }: PortfolioSectionProps) {
   const [selectedImage, setSelectedImage] = useState<PortfolioItem | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Ecommerce & Retail");
   const [sliderOffset, setSliderOffset] = useState(0);
@@ -771,7 +770,8 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
       }
       setMobileSliderOffset(activeIndex);
     }
-  }, [activeTab]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab]); // sliderOffset intentionally excluded to prevent infinite loop
   const handleCardClick = (item: PortfolioItem) => setSelectedImage(item);
   const handleClose = () => setSelectedImage(null);
   const canScrollPrev = sliderOffset > 0;

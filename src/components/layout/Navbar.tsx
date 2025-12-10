@@ -6,6 +6,21 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, MessageSquare, X } from "lucide-react";
 import Image from "next/image";
+
+// Zopim type definition
+interface ZopimAPI {
+  (callback: () => void): void;
+  livechat?: {
+    window?: {
+      show?: () => void;
+      toggle?: () => void;
+    };
+  };
+}
+
+interface ZopimWindow extends Window {
+  $zopim?: ZopimAPI;
+}
 const navItems = [
   { label: "AI Agent", href: "/ai-agent" },
   { label: "Web Development", href: "/web-development" },
@@ -32,7 +47,7 @@ export const Navbar = () => {
   useEffect(() => {
     const checkZopim = () => {
       if (typeof window !== 'undefined') {
-        const zopim = (window as any).$zopim;
+        const zopim = (window as ZopimWindow).$zopim;
         if (zopim) {
           console.log('Zopim is available:', zopim);
         } else {
@@ -60,7 +75,7 @@ export const Navbar = () => {
     // Function to open chat using Zopim API
     const openChat = () => {
       try {
-        const zopim = (window as any).$zopim;
+        const zopim = (window as ZopimWindow).$zopim;
         
         if (!zopim) {
           console.warn('Zopim is not available');
@@ -73,30 +88,38 @@ export const Navbar = () => {
           zopim(function() {
             try {
               // Inside callback, $zopim is the API object
-              const z = (window as any).$zopim;
-              if (z && z.livechat && z.livechat.window) {
-                // Try show() to open the chat window
-                if (typeof z.livechat.window.show === 'function') {
-                  z.livechat.window.show();
-                  return;
-                }
-                // Fallback to toggle() if show() doesn't exist
-                if (typeof z.livechat.window.toggle === 'function') {
-                  z.livechat.window.toggle();
-                  return;
+              const z = (window as ZopimWindow).$zopim;
+              if (z && typeof z === 'object' && z !== null) {
+                const zObj = z as ZopimAPI & { livechat?: { window?: { show?: () => void; toggle?: () => void } } };
+                if (zObj.livechat && zObj.livechat.window) {
+                  // Try show() to open the chat window
+                  if (typeof zObj.livechat.window.show === 'function') {
+                    zObj.livechat.window.show();
+                    return;
+                  }
+                  // Fallback to toggle() if show() doesn't exist
+                  if (typeof zObj.livechat.window.toggle === 'function') {
+                    zObj.livechat.window.toggle();
+                    return;
+                  }
                 }
               }
             } catch (err) {
               console.error('Error in Zopim callback:', err);
             }
           });
+          return;
         } 
+        
         // If Zopim is already an object (fully initialized)
-        else if (zopim.livechat && zopim.livechat.window) {
-          if (typeof zopim.livechat.window.show === 'function') {
-            zopim.livechat.window.show();
-          } else if (typeof zopim.livechat.window.toggle === 'function') {
-            zopim.livechat.window.toggle();
+        if (typeof zopim === 'object') {
+          const zopimObj = zopim as ZopimAPI & { livechat?: { window?: { show?: () => void; toggle?: () => void } } };
+          if (zopimObj && zopimObj.livechat && zopimObj.livechat.window) {
+            if (typeof zopimObj.livechat.window.show === 'function') {
+              zopimObj.livechat.window.show();
+            } else if (typeof zopimObj.livechat.window.toggle === 'function') {
+              zopimObj.livechat.window.toggle();
+            }
           }
         }
       } catch (error) {
@@ -105,7 +128,7 @@ export const Navbar = () => {
     };
     
     // Check if Zopim is already available
-    const zopim = (window as any).$zopim;
+    const zopim = (window as ZopimWindow).$zopim;
     if (zopim) {
       openChat();
     } else {
@@ -114,7 +137,7 @@ export const Navbar = () => {
       const maxRetries = 25; // Increased retries
       const checkZopim = setInterval(() => {
         retries++;
-        const zopimCheck = (window as any).$zopim;
+        const zopimCheck = (window as ZopimWindow).$zopim;
         if (zopimCheck) {
           clearInterval(checkZopim);
           // Small delay to ensure Zopim is fully initialized

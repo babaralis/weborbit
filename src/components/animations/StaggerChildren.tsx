@@ -9,16 +9,17 @@ interface StaggerChildrenProps {
   className?: string;
 }
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1,
-    },
-  },
-};
+// Container variants kept for potential future use
+// const containerVariants: Variants = {
+//   hidden: { opacity: 0 },
+//   visible: {
+//     opacity: 1,
+//     transition: {
+//       staggerChildren: 0.1,
+//       delayChildren: 0.1,
+//     },
+//   },
+// };
 
 export const staggerItemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },

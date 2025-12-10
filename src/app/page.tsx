@@ -15,7 +15,6 @@ import { PricingSection } from "@/components/sections/PricingSection";
 import { WhoItsForSection } from "@/components/sections/WhoItsForSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { FinalTestimonial } from "@/components/sections/FinalTestimonial";
-import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata = generatePageMetadata({
   title: "Web Design & Development Agency",
@@ -28,13 +27,7 @@ export default async function HomePage({
 }: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const params = searchParams ? await searchParams : undefined;
-  const submitted =
-    typeof params?.submitted === "string"
-      ? params?.submitted === "1"
-      : Array.isArray(params?.submitted)
-      ? params?.submitted?.[0] === "1"
-      : false;
+  const _params = searchParams ? await searchParams : undefined;
   return (
     <>
       <HeroSection />

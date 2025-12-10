@@ -2,13 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Play, ArrowRight, ExternalLink } from "lucide-react";
+import { Play, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { FinalTestimonial } from "@/components/sections/FinalTestimonial";
 import { TrustBadges } from "@/components/sections/TrustBadges";
 
-const ratings = [
+const _ratings = [
   {
     name: "Google",
     image: "https://www.orbitmedia.com/wp-content/uploads/2023/07/reviews-Google2023-500x214.jpg",
@@ -23,7 +23,7 @@ const ratings = [
   },
 ];
 
-const awards = [
+const _awards = [
   {
     name: "Web Excellence Awards",
     image: "https://www.orbitmedia.com/wp-content/uploads/2023/08/logoGrid-350x200-WebExcellenceAwards-200x115.png",
@@ -50,7 +50,7 @@ const awards = [
   },
 ];
 
-const communityContributions = [
+const _communityContributions = [
   {
     title: "The Revenue Website Playbook",
     description: "Our comprehensive guide distills 15+ years of insights into a practical framework for building websites that generate leads and revenue consistently.",

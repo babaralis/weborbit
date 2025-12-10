@@ -1,6 +1,6 @@
 import { ContactForm } from "@/components/forms/ContactForm";
 import Link from "next/link";
-import { ArrowRight, Twitter, Facebook, Linkedin, Youtube } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Get in touch with Webs Orbit. Share your goals and we'll reply with clear next steps.",
 };
 
-const serviceLinks = [
+const _serviceLinks = [
   {
     title: "Web Design Agency",
     links: ["Custom Website Design", "Responsive Design", "UI/UX Design", "Brand Identity"],
