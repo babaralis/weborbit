@@ -14,7 +14,7 @@ export const CMSSection = () => {
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="order-2 lg:order-1">
-            <Image src="/assets/images/home/home2.png" alt="CMS Image" width={600} height={600} />
+            <Image src="/assets/images/home/home2.webp" alt="CMS Image" width={600} height={600} />
           </div>
           <div className="order-1 lg:order-2">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-foreground">

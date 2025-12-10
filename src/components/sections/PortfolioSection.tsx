@@ -703,54 +703,39 @@ const getAllCategories = (): string[] => {
 };
 const createTabs = (): string[] => {
   const categories = getAllCategories();
-  // Remove special tabs from categories to avoid duplicates
   const specialTabs = ["Ecommerce & Retail", "Education & Learning", ];
   const filteredCategories = categories.filter(cat => !specialTabs.includes(cat));
-  // Create tabs: "All" first, then special tabs in order, then other categories
   const tabs = ["All", "Ecommerce & Retail", "Education & Learning", ...filteredCategories.slice(0, 8)];
   return tabs;
 };
 const TABS = createTabs();
-const VISIBLE_TABS = 6;
+const VISIBLE_TABS_DESKTOP = 6;
+const VISIBLE_TABS_MOBILE = 1;
 const ALL_TAB_LIMIT = 38;
 const CATEGORY_TAB_LIMIT = 38;
-
-// Helper function to get mockup and website image paths
 const getImagePaths = (imagePath: string) => {
-  // Extract category folder and number from path like "/assets/images/portfolio/ecomerce-retail/1.webp"
   const match = imagePath.match(/\/portfolio\/([^\/]+)\/(\d+)\.webp$/);
   if (!match) {
-    // Fallback to original image if pattern doesn't match
     return { mockup: imagePath, website: imagePath };
   }
-  
   const [, categoryFolder, number] = match;
-  
-  // Fix typo: ecomerce-retail -> ecommerce-retail
   const correctedCategory = categoryFolder === "ecomerce-retail" 
     ? "ecommerce-retail" 
     : categoryFolder;
-  
-  // Format number with leading zero (01, 02, etc.)
   const formattedNumber = number.padStart(2, "0");
-  
-  // Generate paths for mockup and website
   const mockupPath = `/assets/images/portfolio/${correctedCategory}/mockup-${formattedNumber}.webp`;
   const websitePath = `/assets/images/portfolio/${correctedCategory}/website-${formattedNumber}.webp`;
-  
   return { mockup: mockupPath, website: websitePath };
 };
-
-// Helper function to get mockup image path for card display
 const getMockupImagePath = (imagePath: string) => {
   const { mockup } = getImagePaths(imagePath);
   return mockup;
 };
-
 export function PortfolioSection({ limit }: PortfolioSectionProps) {
   const [selectedImage, setSelectedImage] = useState<PortfolioItem | null>(null);
-  const [activeTab, setActiveTab] = useState<string>("All");
+  const [activeTab, setActiveTab] = useState<string>("Ecommerce & Retail");
   const [sliderOffset, setSliderOffset] = useState(0);
+  const [mobileSliderOffset, setMobileSliderOffset] = useState(0);
   const tabsContainerRef = useRef<HTMLDivElement>(null);
   const getFilteredItems = (): PortfolioItem[] => {
     let filtered: PortfolioItem[];
@@ -763,30 +748,38 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
     return filtered.slice(0, tabLimit);
   };
   const itemsToShow = getFilteredItems();
-  const maxOffset = Math.max(0, TABS.length - VISIBLE_TABS);
+  const maxOffset = Math.max(0, TABS.length - VISIBLE_TABS_DESKTOP);
+  const mobileMaxOffset = Math.max(0, TABS.length - 1);
+  
   const handlePrev = () => {
     setSliderOffset((prev) => Math.max(0, prev - 1));
+    setMobileSliderOffset((prev) => Math.max(0, prev - 1));
   };
   const handleNext = () => {
     setSliderOffset((prev) => Math.min(maxOffset, prev + 1));
+    setMobileSliderOffset((prev) => Math.min(mobileMaxOffset, prev + 1));
   };
   useEffect(() => {
     const activeIndex = TABS.indexOf(activeTab);
     if (activeIndex !== -1) {
       const visibleStart = sliderOffset;
-      const visibleEnd = sliderOffset + VISIBLE_TABS - 1;  
+      const visibleEnd = sliderOffset + VISIBLE_TABS_DESKTOP - 1;  
       if (activeIndex < visibleStart) {
         setSliderOffset(activeIndex);
       } else if (activeIndex > visibleEnd) {
-        setSliderOffset(Math.max(0, activeIndex - VISIBLE_TABS + 1));
+        setSliderOffset(Math.max(0, activeIndex - VISIBLE_TABS_DESKTOP + 1));
       }
+      setMobileSliderOffset(activeIndex);
     }
   }, [activeTab]);
   const handleCardClick = (item: PortfolioItem) => setSelectedImage(item);
   const handleClose = () => setSelectedImage(null);
   const canScrollPrev = sliderOffset > 0;
   const canScrollNext = sliderOffset < maxOffset;
-  const translateX = -(sliderOffset * (50 / VISIBLE_TABS));
+  const canScrollPrevMobile = mobileSliderOffset > 0;
+  const canScrollNextMobile = mobileSliderOffset < mobileMaxOffset;
+  const translateX = -(sliderOffset * (50 / VISIBLE_TABS_DESKTOP));
+  const mobileTranslateX = -(mobileSliderOffset * (100 / TABS.length));
   return (
     <section id="portfolio" className="py-24 lg:py-32 relative overflow-hidden">
       <GridPattern variant="lines" className="opacity-20" />
@@ -804,28 +797,39 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
             {canScrollPrev && (
               <button
                 onClick={handlePrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-muted transition-colors"
+                className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background border border-border shadow-md items-center justify-center hover:bg-muted transition-colors"
                 aria-label="Previous tabs"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
             )}
+            {canScrollPrevMobile && (
+              <button
+                onClick={handlePrev}
+                className="md:hidden absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-muted transition-colors"
+                aria-label="Previous tabs"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+            )}
             <div
               ref={tabsContainerRef}
-              className="overflow-hidden flex-1 mx-12 relative"
+              className="overflow-x-auto overflow-y-hidden flex-1 md:mx-12 mx-10 relative [&::-webkit-scrollbar]:hidden"
+              style={{
+                WebkitOverflowScrolling: 'touch',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+              }}
             >
-              {/* Left Fade Gradient - appears when can scroll left */}
               {canScrollPrev && (
-                <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
+                <div className="hidden md:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
               )}
               
-              {/* Right Fade Gradient - appears when can scroll right */}
               {canScrollNext && (
-                <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
+                <div className="hidden md:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
               )}
-
               <motion.div
-                className="flex gap-2 relative z-0"
+                className="hidden md:flex gap-2 relative z-0"
                 animate={{
                   x: `${translateX}%`,
                 }}
@@ -854,14 +858,62 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
                   );
                 })}
               </motion.div>
+              <div className="md:hidden overflow-hidden relative z-0">
+                <motion.div
+                  className="flex relative z-0"
+                  animate={{
+                    x: `${mobileTranslateX}%`,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 30,
+                  }}
+                  style={{
+                    width: `${TABS.length * 100}%`,
+                  }}
+                >
+                  {TABS.map((tab) => {
+                    const isActive = activeTab === tab;
+                    return (
+                      <button
+                        key={tab}
+                        data-tab={tab}
+                        onClick={() => setActiveTab(tab)}
+                        className={cn(
+                          "px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-300 flex-shrink-0",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                          isActive
+                            ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                            : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                        )}
+                        style={{
+                          width: `${100 / TABS.length}%`,
+                        }}
+                      >
+                        {tab}
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              </div>
             </div>
             {canScrollNext && (
               <button
                 onClick={handleNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-muted transition-colors"
+                className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-background border border-border shadow-md items-center justify-center hover:bg-muted transition-colors"
                 aria-label="Next tabs"
               >
                 <ChevronRight className="h-5 w-5" />
+              </button>
+            )}
+            {canScrollNextMobile && (
+              <button
+                onClick={handleNext}
+                className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-background border border-border shadow-md flex items-center justify-center hover:bg-muted transition-colors"
+                aria-label="Next tabs"
+              >
+                <ChevronRight className="h-4 w-4" />
               </button>
             )}
           </div>
@@ -895,7 +947,6 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
                     className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
                   <Badge className="absolute top-4 left-4 z-20 bg-background/80 backdrop-blur-sm text-foreground">
                     {project.category}
                   </Badge>
@@ -937,8 +988,7 @@ export function PortfolioSection({ limit }: PortfolioSectionProps) {
                 <DialogTitle>{selectedImage.title}</DialogTitle>
                 <DialogDescription>{selectedImage.description}</DialogDescription>
               </DialogHeader>
-              <div className="relative w-full h-full flex flex-col min-h-0">
-                {/* Website Image */}
+              <div className="relative w-full h-full flex flex-col min-h-0">  
                 <div className="relative flex-1 min-h-0 overflow-y-auto bg-muted p-2 poppupImage">
                   {(() => {
                     const { website } = getImagePaths(selectedImage.image);

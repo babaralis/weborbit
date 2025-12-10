@@ -612,7 +612,7 @@ export function PricingSection({ className }: { className?: string }) {
                       )}
                     >
                       {plan.popular && (
-                        <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary py-2 text-center">
+                        <div className="bg-primary py-2 text-center">
                           <span className="text-xs font-semibold text-white flex items-center justify-center gap-1">
                             <Sparkles className="w-4 h-4" />
                             Most Popular
@@ -710,7 +710,7 @@ export function PricingSection({ className }: { className?: string }) {
                     )}
                   >
                     {plan.popular && (
-                      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-secondary py-2 text-center">
+                      <div className="bg-primary py-2 text-center">
                         <span className="text-xs font-semibold text-white flex items-center justify-center gap-1">
                           <Sparkles className="w-4 h-4" />
                           Most Popular

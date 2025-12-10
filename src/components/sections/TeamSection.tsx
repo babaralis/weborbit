@@ -115,7 +115,7 @@ const AnimatedStat: React.FC<StatProps> = ({ value, label }) => {
 
 export const TeamSection = () => {
   return (
-    <section className="section-padding bg-background pb-0">
+    <section className="section-padding bg-background">
       <div className="container-wide">
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground">

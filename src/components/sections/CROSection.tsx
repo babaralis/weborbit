@@ -40,7 +40,7 @@ export const CROSection = () => {
             </div>
           </div>
           <div className="relative">
-            <Image src="/assets/images/home/bannerside2.png" alt="CRO Image" width={600} height={600} />
+            <Image src="/assets/images/home/bannerside2.webp" alt="CRO Image" width={600} height={600} />
           </div>
 
         </div>

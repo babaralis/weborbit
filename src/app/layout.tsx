@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: {
@@ -64,6 +65,30 @@ export default function RootLayout({
           <Toaster />
           <Sonner />
         </TooltipProvider>
+        <Script
+          id="zopim-live-chat"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.$zopim || (function(d, s) {
+                var z = $zopim = function(c){ z.push(c) },
+                $ = z.s = d.createElement(s),
+                e = d.getElementsByTagName(s)[0];
+
+                z.set = function(o){ z.set.push(o) };
+                z.set.push = [];
+                z.set._ = [];
+
+                $.async = true;
+                $.setAttribute("charset", "utf-8");
+                $.src = "https://v2.zopim.com/?6a6T9BZl3SsAEZGSlYnFPv3jrDOvIhpw";
+                z.t = +new Date;
+                $.type = "text/javascript";
+                e.parentNode.insertBefore($, e);
+              })(document, "script");
+            `,
+          }}
+        />
       </body>
     </html>
   );
