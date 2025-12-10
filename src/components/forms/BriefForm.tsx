@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { submitEmail } from "@/lib/email";
 import {
   Select,
   SelectContent,
@@ -43,15 +44,47 @@ export function BriefForm({
     email: "",
     phone: "",
   });
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState<string>("");
   const totalSteps = 6;
 
   const updateFormData = (field: keyof BriefFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
-
-  const nextStep = () => {
-    if (currentStep < totalSteps) {
+  // Function to send data to CRM API via Next.js API route (avoids CORS issues)
+  const sendLeadToCRM = async (payload: BriefFormData) => {
+    try {
+      console.log('📤 Sending form data:', payload);
+  
+      const response = await submitEmail(payload);
+      
+      if (response.ok) {
+        console.log('✅ Email sent successfully');
+        return response;
+      }
+      
+      // Check if backend returned status: false
+      throw new Error(`Failed to send email. Status: ${response.status}`);
+    } catch (error) {
+      console.error('❌ Error sending lead to CRM:', error);
+      throw error;
+    }
+  };
+  const nextStep = async () =>  {
+    if (currentStep === totalSteps) {
+      setIsSubmitting(true);
+      setValidationError("");
+      try {
+        await sendLeadToCRM(formData);
+        console.log('✅ Lead sent to CRM successfully');
+        // Navigate to thank-you page
+        router.push('/thank-you');
+      } catch (error) {
+        console.error('❌ Error sending lead to CRM:', error);
+        setValidationError('Failed to submit. Please try again.');
+        setIsSubmitting(false);
+      }
+    } else if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -98,18 +131,10 @@ export function BriefForm({
 
   const [direction, setDirection] = useState(0);
 
-  const handleNext = () => {
-    if (canProceed()) {
-      if (currentStep === totalSteps) {
-        // After last step, redirect to thank-you page
-        // Store form data in sessionStorage or pass as query params
-        const formDataString = JSON.stringify(formData);
-        sessionStorage.setItem('briefFormData', formDataString);
-        router.push('/thank-you');
-      } else {
-        setDirection(1);
-        nextStep();
-      }
+  const handleNext = async () => {
+    if (canProceed() && !isSubmitting) {
+      setDirection(1);
+      await nextStep();
     }
   };
 
