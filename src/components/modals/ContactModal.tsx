@@ -293,7 +293,7 @@ export function ContactModal({ isOpen, onClose, planName }: ContactModalProps) {
                   <strong className="text-foreground">Email:</strong> info@Webs Orbit.com
                 </p>
                 <p>
-                  <strong className="text-foreground">Phone:</strong> (312) 555-0123
+                  <strong className="text-foreground">Phone:</strong> (347) 967-4146
                 </p>
                 <p>
                   <strong className="text-foreground">Address:</strong> 123 Digital Avenue, Suite 400, Chicago, IL 60601

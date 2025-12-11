@@ -115,11 +115,11 @@ export default function ContactPage() {
               </div>
               <div className="text-sm">
                 <p className="text-muted-foreground">
-                  Main: <a href="tel:+13125550123" className="text-primary hover:underline">(312) 555-0123</a>
+                  Main: <a href="tel:+13479674146" className="text-primary hover:underline">(347) 967-4146</a>
                 </p>
-                <p className="text-muted-foreground">
+                {/* <p className="text-muted-foreground">
                   Support: <a href="tel:+13125550124" className="text-primary hover:underline">(312) 555-0124</a>
-                </p>
+                </p> */}
               </div>
               <div>
                 <h3 className="font-bold text-foreground mb-2">Address</h3>
